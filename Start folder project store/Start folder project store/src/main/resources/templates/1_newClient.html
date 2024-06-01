@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="img/style.css" />
+    <title>New Client</title>
+</head>
+<body>
+
+<form action="/submitNewClient" >
+    <p>
+        <label for="name">First Name:</label>
+        <input type="text" name="name" id="name">
+    </p>
+    <p>
+        <label for="surname">Surname:</label>
+        <input type="text" name="surname" id="surname">
+    </p>
+    <p>
+        <label for="birthYear">Year of birth</label>
+        <input type="date" name="birthYear" id="birthYear">
+    </p>
+
+    </p>
+    <p>
+        <input type="submit" name="submit" value="Continue without cardnumber" >
+    </p>
+</form>
+
+<a th:href="@{/index.html}">Go back to the home page</a>
+</body>
+</html>

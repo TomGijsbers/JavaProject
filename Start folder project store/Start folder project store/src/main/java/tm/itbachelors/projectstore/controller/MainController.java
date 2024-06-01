@@ -4,7 +4,9 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import tm.itbachelors.projectstore.model.Client;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,9 +22,45 @@ public class MainController{
 */
 
     //Write your code here after this line
+    @RequestMapping("/index")
+    public String index() {
+        return "index";
+    }
 
 
+    @GetMapping("/1_newClient")
+    public String newClient() {
+        return "1_newClient";
+    }
 
+    @GetMapping("/showNewClient")
+    public String showNewClient() {
+        return "showNewClient";
+    }
+
+
+    @RequestMapping("/submitNewClient")
+    public String submitNewClient(HttpServletRequest request, Model model) {
+        // Parameters uit het request halen.
+
+        String name = request.getParameter("name");
+        String surname = request.getParameter("surname");
+        String birthYearStr = request.getParameter("birthYear");
+        LocalDate birthYear = null;
+        if (birthYearStr != null) {
+            birthYear = LocalDate.parse(birthYearStr);
+        }
+
+        // Maak een nieuwe client instantie met de opgehaalde waarden.
+        Client client = new Client(name,surname.toUpperCase());
+        client.getYearOfBirth();
+
+        // Voeg het Client object toe aan het model om te gebruiken in de view.
+        model.addAttribute("showNewClient", client);
+
+        // Stuur de gebruiker naar de "showNewClientg" view.
+        return "showNewClient";
+    }
 
 
 /* You will need these methods in part 3 of the project assignment.
