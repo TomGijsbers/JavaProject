@@ -1,52 +1,76 @@
-/*add a self-selected stylesheet here*/
-/* Algemene instellingen */
-body, html {
+/* Basis reset */
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background: #f8f8f8;
-    color: #333;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif; /* Modern en leesbaar lettertype */
+    background-color: #f4f4f4; /* Zachte achtergrondkleur */
+    color: #333; /* Basiskleur voor tekst */
+    line-height: 1.6; /* Meer leesbaarheid */
+    padding: 20px; /* Ruimte rondom de inhoud */
 }
 
 header, footer {
-    background: #fff;
     text-align: center;
-    padding: 1em;
+    padding: 20px 0;
+    background-color: #ffffff;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
+h1, h2 {
+    color: #000080; /* Een opvallende kleur voor koppen */
 }
 
-nav ul li {
-    display: inline;
-    margin-right: 20px;
+a {
+    color: #007BFF;
+    text-decoration: none; /* Geen onderstreping om het cleaner te maken */
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #007aff;
+a:hover {
+    text-decoration: underline; /* Voegt interactie toe bij hover */
+}
+
+/* Formulierstijlen */
+form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px; /* Moderne afgeronde hoeken */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Subtiele schaduw voor diepte */
+    margin: 20px 0; /* Ruimte rond het formulier */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px; /* Ruimte onder labels voor duidelijkheid */
     font-weight: bold;
 }
 
-main {
-    padding: 20px;
-    text-align: center;
+input[type="text"],
+input[type="date"],
+input[type="submit"] {
+    width: 100%; /* Volledige breedte voor mobiele vriendelijkheid */
+    padding: 10px;
+    margin-bottom: 20px; /* Ruimte tussen invoervelden */
+    border: 1px solid #ddd; /* Subtiele rand */
+    border-radius: 5px; /* Afgeronde hoeken voor invoervelden */
 }
 
-section {
-    margin-bottom: 20px;
+input[type="submit"] {
+    background-color: #007BFF; /* Levendige achtergrondkleur */
+    color: white;
+    border: 0;
+    cursor: pointer; /* Maakt duidelijk dat het klikbaar is */
 }
 
-footer {
-    font-size: 0.8em;
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Donkerdere kleur bij hover */
 }
 
-/* Responsive design */
-@media (max-width: 600px) {
-    nav ul li {
-        display: block;
-        margin-bottom: 10px;
+/* Responsiviteit */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
     }
 }
