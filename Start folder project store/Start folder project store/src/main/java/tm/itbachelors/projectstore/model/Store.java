@@ -1,6 +1,6 @@
 package tm.itbachelors.projectstore.model;
 import java.util.ArrayList;
-
+//TEST COMPLETE
 public class Store {
     private String name;
     private int numberCustomers;

@@ -1,5 +1,5 @@
 package tm.itbachelors.projectstore.model;
-
+//TETS COMPLETE
 public class Section {
     private String name;
     private String picture;
