@@ -3,8 +3,9 @@ package tm.itbachelors.projectstore.model;
 
 import java.util.ArrayList;
 
+//TEST COMPLETE
 public class Client extends Person {
-    private String cardNumber;
+    private String cardNumber = "undefined";
     private int yearOfBirth;
     private ArrayList<String> shoppingList = new ArrayList<>();
 
@@ -19,8 +20,11 @@ public class Client extends Person {
     }
 
     public void setCardNumber(String cardNumber) {
-        this.cardNumber = "undefined";
-    }
+        if (cardNumber == null) {
+            this.cardNumber = "undefined";
+        } else {
+            this.cardNumber = cardNumber;
+    }}
 
     public int getYearOfBirth() {
         return yearOfBirth;

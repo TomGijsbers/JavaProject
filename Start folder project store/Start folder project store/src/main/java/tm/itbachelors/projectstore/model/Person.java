@@ -2,6 +2,8 @@ package tm.itbachelors.projectstore.model;
 
 import java.util.Locale;
 
+//Test Complete
+
 public class Person {
     private String firstName;
     private String surName;
