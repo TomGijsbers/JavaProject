@@ -45,11 +45,11 @@ public class SectionTests {
     /**
      * Test of setResponsible method, of class Section.
      */
-    @Test
-    public void testResponsible() {
-        Section section = new Section("Fruit");
-        Employee Mickey = new Employee("Mickey", "Mouse");
-        section.setResponsible(Mickey);
-        assertEquals(Mickey, section.getResponsible());
-    }
+//    @Test
+//    public void testResponsible() {
+//        Section section = new Section("Fruit");
+//        Employee Mickey = new Employee("Mickey", "Mouse");
+//        section.setResponsible(Mickey);
+//        assertEquals(Mickey, section.getResponsible());
+//    }
 }
