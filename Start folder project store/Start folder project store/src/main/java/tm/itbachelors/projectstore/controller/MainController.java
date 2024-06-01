@@ -38,6 +38,11 @@ public class MainController{
         return "showNewClient";
     }
 
+    @GetMapping("/3_newEmployee")
+    public String newEmployee() {
+        return "3_newEmployee";
+    }
+
 
     @RequestMapping("/submitNewClient")
     public String submitNewClient(HttpServletRequest request, Model model) {

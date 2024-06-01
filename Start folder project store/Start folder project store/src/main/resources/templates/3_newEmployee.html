@@ -3,11 +3,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="img/style.css" />
-    <title>New Client</title>
+    <title>Title</title>
 </head>
 <body>
 
-<form action="/submitNewClient" >
+
+
+<form action="/submitEmployee" >
     <p>
         <label for="name">First Name:</label>
         <input type="text" name="name" id="name">
@@ -17,16 +19,21 @@
         <input type="text" name="surname" id="surname">
     </p>
     <p>
-        <label for="birthYear">Year of birth</label>
-        <input type="date" name="birthYear" id="birthYear">
+        <label for="startDate">Startdate (DD/MM/YYYY)</label>
+        <input type="date" name="startDate" id="startDate">
     </p>
+    <p>
+
+        <input type="checkbox" name="student" value="true" id="student">
+        <input type="hidden" name="student" value="false">
+        <label for="student">Job student?</label>
 
     </p>
     <p>
-        <input type="submit" name="submit" value="Continue without cardnumber" >
+        <input type="submit" name="submit" value="Confirm employee" >
     </p>
 </form>
 
-<a th:href="@{/index}">Go back to the home page</a>
+<a th:href="@{/index}">Go back to the homepage</a>
 </body>
 </html>
