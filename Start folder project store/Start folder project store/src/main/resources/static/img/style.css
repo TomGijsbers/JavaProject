@@ -68,9 +68,4 @@ input[type="submit"]:hover {
     background-color: #0056b3; /* Donkerdere kleur bij hover */
 }
 
-/* Responsiviteit */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-}
+

@@ -34,7 +34,7 @@ public class Employee extends Person{
 
 
         if (isJobStudent()){
-            return "Employee"+ getSurName().toUpperCase()+getFirstName() + "(job student) is employed since "+text;
+            return "Employee "+ getSurName().toUpperCase()+" "+getFirstName() + " (job student) is employed since "+text;
         }
         else return "Employee "+ getSurName().toUpperCase()+" "+getFirstName() + " is employed since "+text;
 
