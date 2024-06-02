@@ -4,7 +4,10 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import tm.itbachelors.projectstore.model.Client;
+import tm.itbachelors.projectstore.model.Employee;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,8 +23,74 @@ public class MainController{
 */
 
     //Write your code here after this line
+    @RequestMapping("/index")
+    public String index() {
+        return "index";
+    }
 
 
+    @GetMapping("/1_newClient")
+    public String newClient() {
+        return "1_newClient";
+    }
+
+    @GetMapping("/showNewClient")
+    public String showNewClient() {
+        return "showNewClient";
+    }
+
+    @GetMapping("/3_newEmployee")
+    public String newEmployee() {
+        return "3_newEmployee";
+    }
+
+
+    @RequestMapping("/submitNewClient")
+    public String submitNewClient(HttpServletRequest request, Model model) {
+        // Parameters uit het request halen.
+
+        String name = request.getParameter("name");
+        String surname = request.getParameter("surname");
+        String startDateStr = request.getParameter("startDate");
+        LocalDate startDate = null;
+        if (startDateStr != null) {
+            startDate = LocalDate.parse(startDateStr);
+        }
+
+        boolean student = Boolean.parseBoolean(request.getParameter("student"));
+
+        // Maak een nieuwe client instantie met de opgehaalde waarden.
+        Client client = new Client(name,surname.toUpperCase());
+        client.getYearOfBirth();
+
+
+
+        // Voeg het Client object toe aan het model om te gebruiken in de view.
+        model.addAttribute("showNewClient", client);
+
+        // Stuur de gebruiker naar de "showNewClientg" view.
+        return "showNewClient";
+    }
+
+    @RequestMapping("/submitEmployee")
+    public String submitEmployee(HttpServletRequest request, Model model) {
+        String name = request.getParameter("name");
+        String surname = request.getParameter("surname");
+        String startDateStr = request.getParameter("startDate");
+        boolean isJobStudent = Boolean.parseBoolean(request.getParameter("student"));
+
+        LocalDate startDate = null;
+        if (startDateStr != null) {
+            startDate = LocalDate.parse(startDateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
+
+        Employee employee = new Employee(name, surname);
+        employee.setStartDate(startDate);
+        employee.setJobStudent(isJobStudent);
+
+        model.addAttribute("employee", employee);
+        return "4_showEmployee";
+    }
 
 
 
