@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="img/style.css" />
+    <title>Lists of store's</title>
+</head>
+<body>
+<h1>Stores (and number of sections):</h1>
+
+
+<ul>
+    <li th:each="store : ${store}" th:text="${store.name} + ' (' + ${store.getNumberOfSections} + ')'">
+    </li>
+</ul>
+
+<!--<ul>-->
+<!--    <li th:each="store : ${listStores}" th:text="${store.name} + ' (' + ${store.numberOfDepartments} + ')'"></li>-->
+<!--</ul>-->
+
+<a th:href="@{/index}">Go back to the homepage</a>
+</body>
+</html>

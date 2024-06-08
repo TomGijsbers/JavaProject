@@ -4,7 +4,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tm.itbachelors.projectstore.model.Client;
@@ -51,6 +50,7 @@ public class MainController{
     public String newEmployee() {
         return "3_newEmployee";
     }
+
 
     @RequestMapping("/submitNewClient")
     public String submitNewClient(HttpServletRequest request, Model model) {
@@ -103,7 +103,6 @@ public class MainController{
         return "4_showEmployee";
     }
 
-
     @GetMapping("/5_listEmployee")
     public String staffList(Model model) {
         model.addAttribute("listEmployee", employeeArrayList);
@@ -116,6 +115,28 @@ public class MainController{
         return "6_listClients";
     }
 
+    @GetMapping("/7_newStore")
+    public String newStore() {
+        return "7_newStore";
+    }
+
+    @RequestMapping("/submitNewStore")
+    public String submitStore(HttpServletRequest request, Model model){
+        String storeName = request.getParameter("nameStore");
+
+        Store store = new Store(storeName);
+
+        storeArrayList.add(store);  // Voeg de nieuwe winkel toe aan de lijst
+
+        model.addAttribute("store",storeArrayList);
+        return "8_showStores";
+    }
+
+    @GetMapping("/8_showStores")
+    public String showStores(Model model) {
+        model.addAttribute("store", storeArrayList);
+        return "8_showStores";
+    }
 
 // You will need these methods in part 3 of the project assignment.
    private ArrayList<Employee> fillEmployees() {
