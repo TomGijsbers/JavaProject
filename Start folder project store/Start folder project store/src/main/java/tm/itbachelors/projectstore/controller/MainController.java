@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tm.itbachelors.projectstore.model.Client;
@@ -36,7 +37,8 @@ public class MainController{
 
 
     @GetMapping("/1_newClient")
-    public String newClient() {
+    public String newClient(Model model) { // Voeg Model toe als parameter
+        model.addAttribute("storeArrayList", storeArrayList);
         return "1_newClient";
     }
 
@@ -63,12 +65,16 @@ public class MainController{
         }
 
         boolean student = Boolean.parseBoolean(request.getParameter("student"));
+        Integer storeIndex = Integer.parseInt(request.getParameter("storeIndex"));
 
         // Maak een nieuwe client instantie met de opgehaalde waarden.
         Client client = new Client(name,surname.toUpperCase());
         client.getYearOfBirth();
 
+        Store supermarket = storeArrayList.get(storeIndex);
+        supermarket.registerCustomer(client);
 
+        clientArrayList.add(client);
 
         // Voeg het Client object toe aan het model om te gebruiken in de view.
         model.addAttribute("showNewClient", client);
