@@ -5,8 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<p th:text="${employee}"></p>
-
+<h1>Our Staff:</h1>
+<ul>
+    <li th:each="staff : ${listEmployee}" th:text="${staff}">
+    </li>
+</ul>
 
 <a th:href="@{/index}">Go back to the homepage</a>
 </body>
