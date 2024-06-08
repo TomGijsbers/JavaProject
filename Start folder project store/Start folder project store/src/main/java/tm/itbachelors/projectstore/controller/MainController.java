@@ -138,7 +138,42 @@ public class MainController{
         return "8_showStores";
     }
 
-// You will need these methods in part 3 of the project assignment.
+    @GetMapping("/9_newSection")
+    public String newSection( Model model) {
+        model.addAttribute("stores", storeArrayList);
+        model.addAttribute("employees", employeeArrayList);
+        return "9_newSection";
+    }
+
+    @RequestMapping("/submitSection")
+    public String submitSection(HttpServletRequest request, Model model) {
+        String sectionName = request.getParameter("sectionName");
+        String pic = request.getParameter("pic");
+        String coolStr = request.getParameter("cool");
+        Integer storeIndex = Integer.parseInt(request.getParameter("storeIndex"));
+        Integer employeeIndex = Integer.parseInt(request.getParameter("employeeIndex"));
+
+        // Check if indices are valid
+        if (storeIndex < 0 || employeeIndex < 0) {
+            model.addAttribute("errorMessage", "You didn't choose a valid store or employee!");
+            return "error";
+        }
+
+
+        Store store = storeArrayList.get(storeIndex);
+        Employee responsible = employeeArrayList.get(employeeIndex);
+
+        Section section = new Section(sectionName);
+        section.setPicture(pic);
+        section.setCooled(Boolean.parseBoolean(coolStr));
+        section.setResponsible(responsible);
+        store.addSection(section);
+
+        model.addAttribute("store", store);
+        return "10_showSections";
+    }
+
+    // You will need these methods in part 3 of the project assignment.
    private ArrayList<Employee> fillEmployees() {
         ArrayList<Employee> employeeArrayList = new ArrayList<>();
 
