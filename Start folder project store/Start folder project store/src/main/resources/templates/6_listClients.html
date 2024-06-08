@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>List of clients</title>
+</head>
+<body>
+<h1>Our clients:</h1>
+<ul>
+    <li th:each="client : ${listClients}">
+        <span th:text="${client}"></span> <!-- Aanroepen van client.toString() -->
+        <ul>
+            <li th:text="'Year of birth: ' + ${client.getYearOfBirth()}"></li>
+            <li th:text="'Card number: ' + ${client.getCardNumber()}"></li>
+            Shopping List:
+            <ul>
+                <li th:each="item : ${client.getShoppingList()}" th:text="${item}"></li>
+            </ul>
+        </ul>
+    </li>
+</ul>
+
+
+<a th:href="@{/index}">Go back to the homepage</a>
+</body>
+</html>

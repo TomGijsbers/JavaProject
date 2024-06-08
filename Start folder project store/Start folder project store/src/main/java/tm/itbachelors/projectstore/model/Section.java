@@ -4,6 +4,7 @@ public class Section {
     private String name;
     private String picture;
     private boolean cooled;
+    private Employee responsible;
 
     public Section() {
     }
@@ -35,4 +36,13 @@ public class Section {
     public void setCooled(boolean cooled) {
         this.cooled = cooled;
     }
+
+    public void setResponsible(Employee responsible) {
+        this.responsible = responsible;
+    }
+
+    public Employee getResponsible() {
+        return responsible;
+    }
+
 }

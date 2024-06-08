@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tm.itbachelors.projectstore.model.Client;
 import tm.itbachelors.projectstore.model.Employee;
+import tm.itbachelors.projectstore.model.Store;
+import tm.itbachelors.projectstore.model.Section;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +23,10 @@ public class MainController{
     private ArrayList<Client> clientArrayList;
     private ArrayList<Store> storeArrayList;
 */
+
+    private ArrayList<Employee> employeeArrayList;
+    private ArrayList<Client> clientArrayList;
+    private ArrayList<Store> storeArrayList;
 
     //Write your code here after this line
     @RequestMapping("/index")
@@ -43,7 +49,6 @@ public class MainController{
     public String newEmployee() {
         return "3_newEmployee";
     }
-
 
     @RequestMapping("/submitNewClient")
     public String submitNewClient(HttpServletRequest request, Model model) {
@@ -93,8 +98,20 @@ public class MainController{
     }
 
 
+    @GetMapping("/5_listEmployee")
+    public String staffList(Model model) {
+        model.addAttribute("listEmployee", employeeArrayList);
+        return "5_listEmployee";
+    }
 
-/* You will need these methods in part 3 of the project assignment.
+    @GetMapping("/6_listClients")
+    public String clientsList(Model model) {
+        model.addAttribute("listClients", clientArrayList);
+        return "6_listClients";
+    }
+
+
+// You will need these methods in part 3 of the project assignment.
    private ArrayList<Employee> fillEmployees() {
         ArrayList<Employee> employeeArrayList = new ArrayList<>();
 
@@ -139,9 +156,12 @@ public class MainController{
         client2.setYearOfBirth(1996);
         Client client3 = new Client("Maria", "Bonetta");
         client3.setYearOfBirth(1998);
+        Client client4 = new Client("Tom", "Gijsbers");
+        client3.setYearOfBirth(1997);
         clientArrayList.add(client1);
         clientArrayList.add(client2);
         clientArrayList.add(client3);
+        clientArrayList.add(client4);
         clientArrayList.get(0).addToShoppingList("Butter");
         clientArrayList.get(0).addToShoppingList("Bread");
         clientArrayList.get(1).addToShoppingList("Apple");
@@ -180,7 +200,15 @@ public class MainController{
         storeArrayList.add(store3);
         return storeArrayList;
     }
-    */
+
+    @PostConstruct
+    private void initializeArrays() {
+        employeeArrayList = fillEmployees();
+        clientArrayList = fillClients();
+        storeArrayList = fillStores();
+    }
+
+
 
 
 }
