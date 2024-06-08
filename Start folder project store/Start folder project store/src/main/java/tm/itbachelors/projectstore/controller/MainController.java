@@ -49,10 +49,6 @@ public class MainController{
     public String newEmployee() {
         return "3_newEmployee";
     }
-//    @GetMapping("/5_listEmployee")
-//    public String listEmployee(){
-//        return "5_listEmployee";
-//    }
 
     @RequestMapping("/submitNewClient")
     public String submitNewClient(HttpServletRequest request, Model model) {
@@ -108,6 +104,11 @@ public class MainController{
         return "5_listEmployee";
     }
 
+    @GetMapping("/6_listClients")
+    public String clientsList(Model model) {
+        model.addAttribute("listClients", clientArrayList);
+        return "6_listClients";
+    }
 
 
 // You will need these methods in part 3 of the project assignment.
