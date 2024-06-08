@@ -8,7 +8,7 @@
 <body>
 <h1>Project Store</h1>
 <h2>Mady by Tom Gijsbers</h2>
-<p>test add sections</p>
+<p>test search functions</p>
 
 
 <a th:href="@{/1_newClient}">New Client</a>
@@ -17,7 +17,11 @@
 <a th:href="@{6_listClients}">List of clients</a>
 <a th:href="@{7_newStore}">Add a new Store</a>
 <a th:href="@{9_newSection}">Add a new Section</a>
-
+<form action="/sectionSearch">
+    <p>
+        <label for="sectionName"> Search for a section</label>
+        <input type="text" name="sectionName" id="sectionName">
+    </p>
 
 </body>
 </html>

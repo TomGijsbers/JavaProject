@@ -10,6 +10,8 @@ import tm.itbachelors.projectstore.model.Client;
 import tm.itbachelors.projectstore.model.Employee;
 import tm.itbachelors.projectstore.model.Store;
 import tm.itbachelors.projectstore.model.Section;
+import org.springframework.web.bind.annotation.PathVariable; // For @PathVariable
+import java.util.Optional; // For Optional
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -171,6 +173,22 @@ public class MainController{
 
         model.addAttribute("store", store);
         return "10_showSections";
+    }
+
+    @RequestMapping("/sectionSearch")
+    private String sectionSearch(HttpServletRequest request, Model model) {
+
+        String sectionName = request.getParameter("sectionSearch");
+        for (Store store : storeArrayList) {
+            Section section = store.searchSectionByName(sectionName);
+            if (section != null) {
+                model.addAttribute("section", section);
+                return "11_searchSection";
+            }
+        }
+
+        model.addAttribute("errormessage", "There is no department with the name of " + sectionName);
+        return "error";
     }
 
     // You will need these methods in part 3 of the project assignment.
