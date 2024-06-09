@@ -46,7 +46,7 @@ public class MainController{
 
     @GetMapping("/showNewClient")
     public String showNewClient() {
-        return "showNewClient";
+        return "2_showNewClient";
     }
 
     @GetMapping("/3_newEmployee")
@@ -83,7 +83,7 @@ public class MainController{
         model.addAttribute("showNewClient", client);
 
         // Stuur de gebruiker naar de "showNewClientg" view.
-        return "showNewClient";
+        return "2_showNewClient";
     }
 
     @RequestMapping("/submitEmployee")
