@@ -10,8 +10,8 @@ import tm.itbachelors.projectstore.model.Client;
 import tm.itbachelors.projectstore.model.Employee;
 import tm.itbachelors.projectstore.model.Store;
 import tm.itbachelors.projectstore.model.Section;
-import org.springframework.web.bind.annotation.PathVariable; // For @PathVariable
-import java.util.Optional; // For Optional
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -155,11 +155,20 @@ public class MainController{
         Integer storeIndex = Integer.parseInt(request.getParameter("storeIndex"));
         Integer employeeIndex = Integer.parseInt(request.getParameter("employeeIndex"));
 
-        // Check if indices are valid
-        if (storeIndex < 0 || employeeIndex < 0) {
+
+// Check if indices are valid
+        if (storeIndex < 0 && employeeIndex < 0) {
             model.addAttribute("errorMessage", "You didn't choose a valid store or employee!");
             return "error";
+        } else if (storeIndex < 0) {
+            model.addAttribute("errorMessage", "You didn't choose a valid store!");
+            return "error";
+        } else if (employeeIndex < 0) {
+            model.addAttribute("errorMessage", "You didn't choose a valid employee!");
+            return "error";
         }
+
+
 
 
         Store store = storeArrayList.get(storeIndex);
@@ -173,6 +182,17 @@ public class MainController{
 
         model.addAttribute("store", store);
         return "10_showSections";
+    }
+
+    @GetMapping("/10_showSections/{storeName}")
+    public String showSections(@PathVariable String storeName, Model model) {
+        for (Store store : storeArrayList) {
+            if (store.getName().equals(storeName)) {
+                model.addAttribute("store", store);
+                return "10_showSections"; // Make sure the name matches your Thymeleaf template
+            }
+        }
+        return "error"; // Consider creating an error view if no store matches
     }
 
     @RequestMapping("/sectionSearch")
