@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import tm.itbachelors.projectstore.model.Client;
 import tm.itbachelors.projectstore.model.Employee;
 import tm.itbachelors.projectstore.model.Store;
@@ -195,20 +196,17 @@ public class MainController{
         return "error"; // Consider creating an error view if no store matches
     }
 
-    @RequestMapping("/sectionSearch")
-    private String sectionSearch(HttpServletRequest request, Model model) {
-
-        String sectionName = request.getParameter("sectionSearch");
+    @GetMapping("/sectionSearch")
+    public String sectionSearch(@RequestParam("sectionName") String sectionName, Model model) {
         for (Store store : storeArrayList) {
             Section section = store.searchSectionByName(sectionName);
             if (section != null) {
                 model.addAttribute("section", section);
-                return "11_searchSection";
+                return "11_searchSection"; // Make sure this matches your Thymeleaf template name
             }
         }
-
-        model.addAttribute("errormessage", "There is no department with the name of " + sectionName);
-        return "error";
+        model.addAttribute("errorMessage", "There is no department with the name of " + sectionName);
+        return "error"; // Redirect to a generic error page
     }
 
     // You will need these methods in part 3 of the project assignment.

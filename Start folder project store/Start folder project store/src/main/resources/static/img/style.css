@@ -26,6 +26,12 @@ h1, h2 {
 a {
     color: #007BFF;
     text-decoration: none; /* Geen onderstreping om het cleaner te maken */
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f0f0f0;
+    display: inline-block; /* Allows for padding and margins to work with <a> */
+    margin: 5px;
 }
 
 a:hover {
