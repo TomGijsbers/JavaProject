@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="img/style.css" />
+    <title>Add a new store</title>
+</head>
+<body>
+<form action="/submitNewStore">
+    <p>
+        <label for="nameStore">Store Name:</label>
+        <input type="text" name="nameStore" id="nameStore">
+    </p>
+    <p>
+        <input type="submit" name="submit" value="Confirm Store" >
+    </p>
+</form>
+
+<a th:href="@{/index}">Go back to the home page</a>
+</body>
+</html>

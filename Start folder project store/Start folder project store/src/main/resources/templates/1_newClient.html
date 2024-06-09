@@ -21,9 +21,12 @@
         <input type="date" name="birthYear" id="birthYear">
     </p>
 
-    </p>
+    <div th:each="store, storeStat : ${storeArrayList}">
+        <label th:for="${'store' + storeStat.index}" th:text="${store.name}">Store Name</label>
+        <input type="radio" name="storeIndex" th:id="${'store' + storeStat.index}" th:value="${storeStat.index}" th:checked="${storeStat.index == 0}">
+    </div>
     <p>
-        <input type="submit" name="submit" value="Continue without cardnumber" >
+        <input type="submit" name="submit" value="Continue and generate a carnumber" >
     </p>
 </form>
 

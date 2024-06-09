@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="img/style.css" />
+    <title>Add sections</title>
+</head>
+<body>
+<h1>New Sections</h1>
+<form action="/submitSection">
+    <p>
+        <label for="sectionName">Section Name:</label>
+        <input type="text" name="sectionName" id="sectionName" required>
+    </p>
+    <p>
+        <label for="pic">Picture:</label>
+        <input type="text" name="pic" id="pic" required>
+    </p>
+    <p>
+        <input type="checkbox" name="cool" value="true" id="cool">
+        <label for="cool">Cooled?</label>
+    </p>
+    <p>
+        <label for="store">Store:</label>
+        <select id="store" name="storeIndex">
+            <option value="" selected>In which store?</option>
+            <option th:each="store, storeStat : ${stores}"
+                    th:text="${store.name}"
+                    th:value="${storeStat.index}"></option>
+        </select>
+    </p>
+    <p>
+        <label for="employee">Responsible Employee:</label>
+        <select id="employee" name="employeeIndex">
+            <option value="" selected>Who is resposible for this section</option>
+            <option th:each="employee, employeeStat : ${employees}"
+                    th:text="${employee.firstName} + ' ' + ${employee.surName}"
+                    th:value="${employeeStat.index}"></option>
+        </select>
+    </p>
+
+    <p>
+        <input type="submit" name="submit" value="Confirm section">
+    </p>
+</form>
+
+<a th:href="@{/index}">Go back to the homepage</a>
+</body>
+</html>

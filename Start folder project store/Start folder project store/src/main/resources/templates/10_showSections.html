@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="img/style.css" />
+    <title>Show the sections</title>
+</head>
+<body>
+<h1 th:text="'Sections of '+ ${store.name}"></h1>
+
+
+<div th:if="${store.sectionList != null and not #lists.isEmpty(store.sectionList)}">
+    <ul>
+        <li th:each="section : ${store.sectionList}">
+            <h3 th:text="${section.name}"></h3>
+            <p>Cooled: <span th:text="${section.cooled ? 'Yes' : 'No'}"></span></p>
+            <p>Responsible: <span th:text="${section.responsible.firstName + ' ' + section.responsible.surName}"></span></p>
+            <img onerror="this.src='img/noimage.jpg'" th:src="@{${section.picture}}"/>
+        </li>
+    </ul>
+</div>
+<div th:if="${store.sectionList == null or #lists.isEmpty(store.sectionList)}">
+    <p>No sections available</p>
+</div>
+
+<a th:href="@{/index}">Go back to the homepage</a>
+</body>
+</html>

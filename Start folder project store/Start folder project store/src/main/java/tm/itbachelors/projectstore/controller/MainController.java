@@ -6,10 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import tm.itbachelors.projectstore.model.Client;
 import tm.itbachelors.projectstore.model.Employee;
 import tm.itbachelors.projectstore.model.Store;
 import tm.itbachelors.projectstore.model.Section;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -36,7 +39,8 @@ public class MainController{
 
 
     @GetMapping("/1_newClient")
-    public String newClient() {
+    public String newClient(Model model) { // Voeg Model toe als parameter
+        model.addAttribute("storeArrayList", storeArrayList);
         return "1_newClient";
     }
 
@@ -49,6 +53,7 @@ public class MainController{
     public String newEmployee() {
         return "3_newEmployee";
     }
+
 
     @RequestMapping("/submitNewClient")
     public String submitNewClient(HttpServletRequest request, Model model) {
@@ -63,12 +68,16 @@ public class MainController{
         }
 
         boolean student = Boolean.parseBoolean(request.getParameter("student"));
+        Integer storeIndex = Integer.parseInt(request.getParameter("storeIndex"));
 
         // Maak een nieuwe client instantie met de opgehaalde waarden.
         Client client = new Client(name,surname.toUpperCase());
         client.getYearOfBirth();
 
+        Store supermarket = storeArrayList.get(storeIndex);
+        supermarket.registerCustomer(client);
 
+        clientArrayList.add(client);
 
         // Voeg het Client object toe aan het model om te gebruiken in de view.
         model.addAttribute("showNewClient", client);
@@ -97,7 +106,6 @@ public class MainController{
         return "4_showEmployee";
     }
 
-
     @GetMapping("/5_listEmployee")
     public String staffList(Model model) {
         model.addAttribute("listEmployee", employeeArrayList);
@@ -110,8 +118,98 @@ public class MainController{
         return "6_listClients";
     }
 
+    @GetMapping("/7_newStore")
+    public String newStore() {
+        return "7_newStore";
+    }
 
-// You will need these methods in part 3 of the project assignment.
+    @RequestMapping("/submitNewStore")
+    public String submitStore(HttpServletRequest request, Model model){
+        String storeName = request.getParameter("nameStore");
+
+        Store store = new Store(storeName);
+
+        storeArrayList.add(store);  // Voeg de nieuwe winkel toe aan de lijst
+
+        model.addAttribute("store",storeArrayList);
+        return "8_showStores";
+    }
+
+    @GetMapping("/8_showStores")
+    public String showStores(Model model) {
+        model.addAttribute("store", storeArrayList);
+        return "8_showStores";
+    }
+
+    @GetMapping("/9_newSection")
+    public String newSection( Model model) {
+        model.addAttribute("stores", storeArrayList);
+        model.addAttribute("employees", employeeArrayList);
+        return "9_newSection";
+    }
+
+    @RequestMapping("/submitSection")
+    public String submitSection(HttpServletRequest request, Model model) {
+        String sectionName = request.getParameter("sectionName");
+        String pic = request.getParameter("pic");
+        String coolStr = request.getParameter("cool");
+        Integer storeIndex = Integer.parseInt(request.getParameter("storeIndex"));
+        Integer employeeIndex = Integer.parseInt(request.getParameter("employeeIndex"));
+
+
+// Check if indices are valid
+        if (storeIndex < 0 && employeeIndex < 0) {
+            model.addAttribute("errorMessage", "You didn't choose a valid store or employee!");
+            return "error";
+        } else if (storeIndex < 0) {
+            model.addAttribute("errorMessage", "You didn't choose a valid store!");
+            return "error";
+        } else if (employeeIndex < 0) {
+            model.addAttribute("errorMessage", "You didn't choose a valid employee!");
+            return "error";
+        }
+
+
+
+
+        Store store = storeArrayList.get(storeIndex);
+        Employee responsible = employeeArrayList.get(employeeIndex);
+
+        Section section = new Section(sectionName);
+        section.setPicture(pic);
+        section.setCooled(Boolean.parseBoolean(coolStr));
+        section.setResponsible(responsible);
+        store.addSection(section);
+
+        model.addAttribute("store", store);
+        return "10_showSections";
+    }
+
+    @GetMapping("/10_showSections/{storeName}")
+    public String showSections(@PathVariable String storeName, Model model) {
+        for (Store store : storeArrayList) {
+            if (store.getName().equals(storeName)) {
+                model.addAttribute("store", store);
+                return "10_showSections"; // Make sure the name matches your Thymeleaf template
+            }
+        }
+        return "error"; // Consider creating an error view if no store matches
+    }
+
+    @GetMapping("/sectionSearch")
+    public String sectionSearch(@RequestParam("sectionName") String sectionName, Model model) {
+        for (Store store : storeArrayList) {
+            Section section = store.searchSectionByName(sectionName);
+            if (section != null) {
+                model.addAttribute("section", section);
+                return "11_searchSection"; // Make sure this matches your Thymeleaf template name
+            }
+        }
+        model.addAttribute("errorMessage", "There is no department with the name of " + sectionName);
+        return "error"; // Redirect to a generic error page
+    }
+
+    // You will need these methods in part 3 of the project assignment.
    private ArrayList<Employee> fillEmployees() {
         ArrayList<Employee> employeeArrayList = new ArrayList<>();
 

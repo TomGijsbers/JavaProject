@@ -3,15 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="img/style.css" />
-    <title>List of Employee</title>
+    <title>Error</title>
 </head>
 <body>
-<h1>Our Staff:</h1>
-<ul>
-    <li th:each="staff : ${listEmployee}" th:text="${staff}">
-    </li>
-</ul>
-
-<a th:href="@{/index}">Go back to the homepage</a>
+<h1 th:text="${errorMessage}"></h1>
 </body>
 </html>
