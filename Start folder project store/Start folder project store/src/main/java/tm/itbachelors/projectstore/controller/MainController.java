@@ -169,9 +169,6 @@ public class MainController{
             return "error";
         }
 
-
-
-
         Store store = storeArrayList.get(storeIndex);
         Employee responsible = employeeArrayList.get(employeeIndex);
 
