@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form action="/submitNewClient" >
+<form action="/submitNewClientExam" >
     <p>
         <label for="name">First Name:</label>
         <input type="text" name="name" id="name">
@@ -25,6 +25,20 @@
         <label th:for="${'store' + storeStat.index}" th:text="${store.name}">Store Name</label>
         <input type="radio" name="storeIndex" th:id="${'store' + storeStat.index}" th:value="${storeStat.index}" th:checked="${storeStat.index == 0}">
     </div>
+    <p>
+        <label for="visitPW">Expected weekly visit to the store:</label>
+        <input type="text" name="visitPW" id="visitPW">
+    </p>
+    <p>
+        <label for="employee">Responsible Employee:</label>
+        <select id="employee" name="employeeIndex">
+            <option value="" selected>Who is the contact person?</option>
+            <option th:each="employee, employeeStat : ${employees}"
+                    th:text="${employee.firstName} + ' ' + ${employee.surName}"
+                    th:value="${employeeStat.index}"></option>
+        </select>
+    </p>
+
     <p>
         <input type="submit" name="submit" value="Continue and generate a carnumber" >
     </p>

@@ -13,6 +13,7 @@
         <ul>
             <li th:text="'Year of birth: ' + ${client.getYearOfBirth()}"></li>
             <li th:text="'Card number: ' + ${client.getCardNumber()}"></li>
+            <li th:text="'Contact Person: ' + ${client.getContactPerson()}"></li>
             Shopping List:
             <ul>
                 <li th:each="item : ${client.getShoppingList()}" th:text="${item}"></li>

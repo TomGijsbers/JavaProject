@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class Client extends Person {
     private String cardNumber = "undefined";
     private int yearOfBirth;
+    private int visitPerWeek;
+    private Employee contactPerson;
     private ArrayList<String> shoppingList = new ArrayList<>();
 
     // Constructor die firstName en lastName accepteert
@@ -42,6 +44,23 @@ public class Client extends Person {
         this.shoppingList = shoppingList;
     }
 
+
+    public int getVisitPerWeek() {
+        return visitPerWeek;
+    }
+
+    public void setVisitPerWeek(int visitPerWeek) {
+        this.visitPerWeek = visitPerWeek;
+    }
+
+    public Employee getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(Employee contactPerson) {
+        this.contactPerson = contactPerson;
+    }
+
     // Method to add a product name to the shopping list
     public boolean addToShoppingList(String productName) {
         // Check if the shopping list already contains 5 products
@@ -61,7 +80,8 @@ public class Client extends Person {
     }
 
     public String toString() {
-        return "Client "+ getSurName().toUpperCase()+" "+getFirstName() + " with card number "+getCardNumber();
+        return "Client "+ getSurName().toUpperCase()+" "+getFirstName() + " with card number "+getCardNumber() + "(Expected weeky visits:"+getVisitPerWeek()+")"
+                +"Your contact person is:"+ getContactPerson();
     }
 }
 

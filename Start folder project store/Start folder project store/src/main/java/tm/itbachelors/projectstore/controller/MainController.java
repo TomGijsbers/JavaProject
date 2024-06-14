@@ -40,6 +40,7 @@ public class MainController{
 
     @GetMapping("/1_newClient")
     public String newClient(Model model) { // Voeg Model toe als parameter
+        model.addAttribute("employees", employeeArrayList);
         model.addAttribute("storeArrayList", storeArrayList);
         return "1_newClient";
     }
@@ -48,15 +49,13 @@ public class MainController{
     public String showNewClient() {
         return "2_showNewClient";
     }
-
-    @GetMapping("/3_newEmployee")
-    public String newEmployee() {
-        return "3_newEmployee";
+    @GetMapping("/showNewClientExam")
+    public String showNewClientExam() {
+        return "2_showNewClientExam";
     }
 
-
-    @RequestMapping("/submitNewClient")
-    public String submitNewClient(HttpServletRequest request, Model model) {
+    @RequestMapping("/submitNewClientExam")
+    public String submitNewClientExam(HttpServletRequest request, Model model) {
         // Parameters uit het request halen.
 
         String name = request.getParameter("name");
@@ -70,21 +69,78 @@ public class MainController{
         boolean student = Boolean.parseBoolean(request.getParameter("student"));
         Integer storeIndex = Integer.parseInt(request.getParameter("storeIndex"));
 
+        Integer employeeIndex = Integer.parseInt(request.getParameter("employeeIndex"));
+        Integer visitPW = Integer.parseInt(request.getParameter("visitPW"));
+
+
+        if (storeIndex < 0 && employeeIndex < 0) {
+            model.addAttribute("errorMessage", "You didn't choose a valid store or employee!");
+            return "error";
+        } else if (storeIndex < 0) {
+            model.addAttribute("errorMessage", "You didn't choose a valid store!");
+            return "error";
+        } else if (employeeIndex < 0) {
+            model.addAttribute("errorMessage", "You didn't choose a valid employee!");
+            return "error";
+        }
+
+
         // Maak een nieuwe client instantie met de opgehaalde waarden.
         Client client = new Client(name,surname.toUpperCase());
         client.getYearOfBirth();
+        client.getVisitPerWeek();
 
         Store supermarket = storeArrayList.get(storeIndex);
         supermarket.registerCustomer(client);
 
         clientArrayList.add(client);
+        Employee responsible = employeeArrayList.get(employeeIndex);
+
+        client.setContactPerson(responsible);
 
         // Voeg het Client object toe aan het model om te gebruiken in de view.
         model.addAttribute("showNewClient", client);
 
         // Stuur de gebruiker naar de "showNewClientg" view.
-        return "2_showNewClient";
+        return "14_showNewClientExam";
     }
+
+    @GetMapping("/3_newEmployee")
+    public String newEmployee() {
+        return "3_newEmployee";
+    }
+
+
+//    @RequestMapping("/submitNewClient")
+//    public String submitNewClient(HttpServletRequest request, Model model) {
+//        // Parameters uit het request halen.
+//
+//        String name = request.getParameter("name");
+//        String surname = request.getParameter("surname");
+//        String startDateStr = request.getParameter("startDate");
+//        LocalDate startDate = null;
+//        if (startDateStr != null) {
+//            startDate = LocalDate.parse(startDateStr);
+//        }
+//
+//        boolean student = Boolean.parseBoolean(request.getParameter("student"));
+//        Integer storeIndex = Integer.parseInt(request.getParameter("storeIndex"));
+//
+//        // Maak een nieuwe client instantie met de opgehaalde waarden.
+//        Client client = new Client(name,surname.toUpperCase());
+//        client.getYearOfBirth();
+//
+//        Store supermarket = storeArrayList.get(storeIndex);
+//        supermarket.registerCustomer(client);
+//
+//        clientArrayList.add(client);
+//
+//        // Voeg het Client object toe aan het model om te gebruiken in de view.
+//        model.addAttribute("showNewClient", client);
+//
+//        // Stuur de gebruiker naar de "showNewClientg" view.
+//        return "2_showNewClient";
+//    }
 
     @RequestMapping("/submitEmployee")
     public String submitEmployee(HttpServletRequest request, Model model) {
@@ -247,12 +303,20 @@ public class MainController{
         ArrayList<Client> clientArrayList = new ArrayList<>();
         Client client1 = new Client("Dominik", "Mioens");
         client1.setYearOfBirth(2001);
+        client1.setVisitPerWeek(1);
+        client1.setContactPerson(employeeArrayList.get(1));
         Client client2 = new Client("Zion", "Noops");
         client2.setYearOfBirth(1996);
+        client2.setVisitPerWeek(8);
+        client2.setContactPerson(employeeArrayList.get(2));
         Client client3 = new Client("Maria", "Bonetta");
         client3.setYearOfBirth(1998);
+        client3.setVisitPerWeek(2);
+        client3.setContactPerson(employeeArrayList.get(3));
         Client client4 = new Client("Tom", "Gijsbers");
-        client3.setYearOfBirth(1997);
+        client4.setYearOfBirth(1997);
+        client4.setVisitPerWeek(4);
+        client4.setContactPerson(employeeArrayList.get(4));
         clientArrayList.add(client1);
         clientArrayList.add(client2);
         clientArrayList.add(client3);
